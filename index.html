@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Findd × PJS — A Partnership Story</title>
+<style>
+  :root {
+    --findd: #1F4E79;
+    --findd-bright: #2563EB;
+    --findd-soft: #DCE6F1;
+    --pjs: #2D5F3F;
+    --pjs-soft: #E4F0E8;
+    --ink: #0F172A;
+    --ink-mid: #475569;
+    --ink-soft: #64748B;
+    --bg: #F8FAFC;
+    --white: #FFFFFF;
+    --card: #FFFFFF;
+    --border: #E2E8F0;
+    --gradient: linear-gradient(135deg, #1F4E79 0%, #2563EB 50%, #2D5F3F 100%);
+    --gradient-soft: linear-gradient(135deg, rgba(31,78,121,0.06) 0%, rgba(45,95,63,0.06) 100%);
+    --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+    --shadow-md: 0 4px 14px rgba(15,23,42,0.08), 0 2px 4px rgba(15,23,42,0.05);
+    --shadow-lg: 0 20px 40px rgba(15,23,42,0.12), 0 8px 16px rgba(15,23,42,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ HERO / VISION ============ */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: var(--gradient);
+    color: white;
+    padding: 60px 40px 80px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.12), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08), transparent 50%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 28px;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
+  }
+  .hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: #10B981; box-shadow: 0 0 12px #10B981; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+    max-width: 900px;
+  }
+  .hero h1 em { font-style: normal; background: linear-gradient(90deg, #FFD572, #FFC837); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero .subhead {
+    font-size: clamp(18px, 2.2vw, 24px);
+    color: rgba(255,255,255,0.85);
+    max-width: 760px;
+    margin-bottom: 48px;
+    line-height: 1.5;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 40px;
+    align-items: stretch;
+    margin-top: 48px;
+    padding: 32px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+  }
+  .value-col { padding: 16px; }
+  .value-col h3 { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.7); font-weight: 600; margin-bottom: 12px; }
+  .value-col .company { font-size: 22px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .value-col .company .chip { display: inline-block; width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+  .value-col.findd .chip { background: linear-gradient(135deg, #60A5FA, #3B82F6); color: white; }
+  .value-col.pjs .chip { background: linear-gradient(135deg, #86EFAC, #22C55E); color: #064E3B; }
+  .value-col ul { list-style: none; }
+  .value-col li {
+    padding: 10px 0;
+    color: rgba(255,255,255,0.9);
+    font-size: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .value-col li::before { content: "→"; color: rgba(255,255,255,0.5); flex-shrink: 0; }
+
+  .value-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 0 16px;
+  }
+  .connector-line { width: 2px; flex: 1; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent); }
+  .connector-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+    border: 2px solid rgba(255,255,255,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .shared-vision {
+    margin-top: 40px;
+    padding: 28px 32px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+  }
+  .shared-vision .label {
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    color: #FFD572;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .shared-vision p {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: white;
+  }
+  .shared-vision p em { font-style: italic; color: #FFD572; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: bob 2.2s ease-in-out infinite;
+  }
+  .scroll-hint::after { content: "↓"; font-size: 22px; }
+  @keyframes bob { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  /* ============ SECTION CHROME ============ */
+  section { padding: 100px 40px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--findd-bright);
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .section-subtitle {
+    font-size: 18px;
+    color: var(--ink-mid);
+    max-width: 720px;
+    margin-bottom: 48px;
+    line-height: 1.55;
+  }
+
+  /* ============ TIMELINE ============ */
+  .timeline-section { background: var(--white); position: relative; }
+  .timeline-wrapper { position: relative; margin-top: 40px; }
+
+  .timeline-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .timeline-btn {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    color: var(--findd);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .timeline-btn:hover:not(:disabled) {
+    border-color: var(--findd-bright);
+    color: var(--findd-bright);
+    background: var(--findd-soft);
+    transform: translateY(-1px);
+  }
+  .timeline-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .timeline-progress {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .timeline-progress-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--gradient);
+    border-radius: 100px;
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 10%;
+  }
+  .timeline-counter {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-mid);
+    font-variant-numeric: tabular-nums;
+    min-width: 64px;
+    text-align: right;
+  }
+
+  .timeline-track {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 12px 4px 32px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--findd) var(--border);
+  }
+  .timeline-track::-webkit-scrollbar { height: 6px; }
+  .timeline-track::-webkit-scrollbar-track { background: var(--border); border-radius: 100px; }
+  .timeline-track::-webkit-scrollbar-thumb { background: var(--findd); border-radius: 100px; }
+
+  .tl-card {
+    flex: 0 0 380px;
+    scroll-snap-align: start;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .tl-card::before {
+    content: "";
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .tl-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--findd-bright);
+  }
+  .tl-card:hover::before { transform: scaleX(1); }
+  .tl-card .tl-date {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--findd-bright);
+    margin-bottom: 8px;
+  }
+  .tl-card .tl-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .tl-badge.tlm { background: #FEF3C7; color: #92400E; }
+  .tl-badge.hr { background: #DBEAFE; color: #1E40AF; }
+  .tl-badge.mobilize { background: #FCE7F3; color: #9F1239; }
+  .tl-badge.wotc { background: #D1FAE5; color: #065F46; }
+  .tl-badge.ai { background: #EDE9FE; color: #5B21B6; }
+  .tl-badge.ops { background: #E0E7FF; color: #3730A3; }
+  .tl-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .tl-card p {
+    font-size: 15px;
+    color: var(--ink-mid);
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .tl-card .tl-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .tl-meta .meta-chip {
+    font-size: 12px;
+    color: var(--ink-soft);
+    padding: 4px 10px;
+    background: var(--bg);
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  /* ============ TABS ============ */
+  .tabs-section { background: var(--bg); }
+
+  .tab-nav {
+    display: flex;
+    gap: 8px;
+    background: var(--white);
+    padding: 6px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 40px;
+    max-width: 540px;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 14px 24px;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink-mid);
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .tab-btn:hover { color: var(--findd); }
+  .tab-btn.active {
+    background: var(--gradient);
+    color: white;
+    box-shadow: var(--shadow-md);
+  }
+
+  .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Lessons layout */
+  .lessons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .lesson-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .lesson-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .lesson-card .lesson-num {
+    position: absolute;
+    top: -14px;
+    left: 24px;
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: var(--gradient);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    box-shadow: var(--shadow-md);
+  }
+  .lesson-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 16px 0 12px;
+    line-height: 1.3;
+  }
+  .lesson-card .lesson-when {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--findd-bright);
+    margin-bottom: 10px;
+  }
+  .lesson-card p {
+    font-size: 14.5px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .lesson-card .lesson-insight {
+    padding: 14px;
+    background: var(--findd-soft);
+    border-left: 3px solid var(--findd-bright);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .lesson-card .lesson-insight::before {
+    content: "LESSON";
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--findd-bright);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  /* Future layout */
+  .future-intro {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 48px;
+    margin-bottom: 40px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .future-intro::before {
+    content: "";
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(37,99,235,0.08), transparent 60%);
+    pointer-events: none;
+  }
+  .future-intro h3 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.2;
+    position: relative;
+  }
+  .future-intro h3 em { color: var(--findd-bright); font-style: normal; }
+  .future-intro p {
+    font-size: 17px;
+    color: var(--ink-mid);
+    line-height: 1.65;
+    max-width: 800px;
+    position: relative;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 56px;
+  }
+  .pillar {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.25s;
+    position: relative;
+  }
+  .pillar:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--findd-bright); }
+  .pillar-icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: var(--gradient);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+  }
+  .pillar h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .pillar p {
+    font-size: 14.5px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+
+  /* Partners ecosystem */
+  .partners-header {
+    text-align: left;
+    margin-bottom: 28px;
+  }
+  .partners-header h3 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .partners-header p {
+    font-size: 16px;
+    color: var(--ink-mid);
+    max-width: 720px;
+  }
+
+  .partner-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .partner-cat {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .partner-cat:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .partner-cat-header {
+    padding: 24px;
+    background: var(--gradient-soft);
+    border-bottom: 1px solid var(--border);
+  }
+  .partner-cat-header .cat-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--findd-bright);
+    margin-bottom: 8px;
+  }
+  .partner-cat-header h4 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .partner-cat-header p {
+    font-size: 14px;
+    color: var(--ink-mid);
+    line-height: 1.5;
+  }
+  .partner-cat-body { padding: 20px 24px 24px; }
+  .partner-cat .existing {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 700;
+    margin-bottom: 10px;
+    margin-top: 4px;
+  }
+  .partner-cat .exploring {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--findd-bright);
+    font-weight: 700;
+    margin: 18px 0 10px;
+  }
+  .partner-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .partner-chip {
+    padding: 8px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    transition: all 0.2s;
+  }
+  .partner-chip.active {
+    background: var(--findd-soft);
+    border-color: var(--findd-bright);
+    color: var(--findd);
+  }
+  .partner-chip.proposed {
+    background: white;
+    color: var(--ink-mid);
+    border-style: dashed;
+  }
+  .partner-chip:hover { transform: translateY(-1px); }
+
+  /* Impact metrics */
+  .impact-metric {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: center;
+    border: 1px solid transparent;
+  }
+  .impact-metric .impact-number {
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 1;
+    white-space: nowrap;
+    letter-spacing: -0.5px;
+  }
+  .impact-metric .impact-label {
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .impact-metric .impact-tag {
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: white;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .impact-metric.bottom-line {
+    background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+    border-color: rgba(16, 185, 129, 0.2);
+  }
+  .impact-metric.bottom-line .impact-number,
+  .impact-metric.bottom-line .impact-tag { color: #065F46; }
+
+  .impact-metric.acquisition {
+    background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+  .impact-metric.acquisition .impact-number,
+  .impact-metric.acquisition .impact-tag { color: #1E3A8A; }
+
+  .impact-metric.retention {
+    background: linear-gradient(135deg, #F5F3FF, #EDE9FE);
+    border-color: rgba(139, 92, 246, 0.2);
+  }
+  .impact-metric.retention .impact-number,
+  .impact-metric.retention .impact-tag { color: #5B21B6; }
+
+  .impact-metric-label-wrap { min-width: 0; }
+  .impact-metric-label-wrap .impact-lead {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    opacity: 0.65;
+    margin-bottom: 2px;
+  }
+
+  /* CTA strip */
+  .cta-strip {
+    margin-top: 56px;
+    padding: 40px;
+    background: var(--gradient);
+    border-radius: 24px;
+    color: white;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+  }
+  .cta-strip h3 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .cta-strip p {
+    color: rgba(255,255,255,0.85);
+    font-size: 15px;
+    max-width: 540px;
+  }
+  .cta-strip .cta-stats {
+    display: flex;
+    gap: 24px;
+  }
+  .cta-stat { text-align: center; }
+  .cta-stat .n {
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1;
+    color: #FFD572;
+  }
+  .cta-stat .l {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-top: 6px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 40px;
+    background: var(--ink);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    font-size: 13px;
+  }
+  footer strong { color: white; }
+
+  /* Responsive */
+  @media (max-width: 880px) {
+    .values-grid { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+    .value-connector { flex-direction: row; width: 100%; padding: 8px 0; }
+    .connector-line { height: 2px; width: 100%; flex: 1; }
+    .cta-strip { grid-template-columns: 1fr; text-align: center; }
+    .cta-strip .cta-stats { justify-content: center; }
+    section { padding: 64px 24px; }
+    .hero { padding: 40px 24px 60px; }
+    .tl-card { flex: 0 0 300px; }
+    .future-intro { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO / VISION ==================== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="dot"></span>A Partnership Story · March 2024 → Present</div>
+
+    <h1>From a clock on a wall to <em>an AI platform that delivers service.</em></h1>
+
+    <p class="subhead">
+      Two companies with different starting points, one shared conviction: that the future of service is built
+      on trust, transparency, and the disciplined compounding of small, right moves — and that service businesses
+      shouldn&rsquo;t have to choose between being human and being intelligent.
+    </p>
+
+    <div class="values-grid">
+      <div class="value-col findd">
+        <div class="company"><span class="chip">F</span>Findd</div>
+        <ul>
+          <li>Meet customers where they are — never blow up what works.</li>
+          <li>Build the surface the end-user touches; wire in partners for what lives behind it.</li>
+          <li>AI that amplifies operators, never replaces relationships.</li>
+          <li>Honest about our partner map, even when it costs us a line item.</li>
+        </ul>
+      </div>
+
+      <div class="value-connector">
+        <div class="connector-line"></div>
+        <div class="connector-icon">⟷</div>
+        <div class="connector-line"></div>
+      </div>
+
+      <div class="value-col pjs">
+        <div class="company"><span class="chip">P</span>PJS</div>
+        <ul>
+          <li>Service that shows up — thousands of employees, every shift, every week.</li>
+          <li>Operational discipline through EOS and a culture of continuous improvement.</li>
+          <li>Protect the people doing the work; respect the clients who depend on them.</li>
+          <li>Tech must earn its place by making the business simpler, not louder.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shared-vision">
+      <div class="label">The shared thesis</div>
+      <p>
+        Service companies don&rsquo;t have to pick between being a service business and being a technology platform.
+        The ones who win the next decade will be <em>both</em> — and Findd + PJS are building the blueprint for
+        how that transformation happens in janitorial, and in every service category that follows.
+      </p>
+    </div>
+  </div>
+  <div class="scroll-hint">Explore the journey</div>
+</div>
+
+<!-- ==================== TIMELINE ==================== -->
+<section class="timeline-section" id="timeline">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Journey</div>
+    <h2 class="section-title">25 months of compounding trust.</h2>
+    <p class="section-subtitle">
+      Slide through the moments that turned a single TLM implementation in Texas into a four-district,
+      multi-module platform deployment with a partner-powered ecosystem behind it.
+    </p>
+
+    <div class="timeline-wrapper">
+      <div class="timeline-controls">
+        <button class="timeline-btn" id="tlPrev" aria-label="Previous milestone">←</button>
+        <div class="timeline-progress"><div class="timeline-progress-bar" id="tlProgress"></div></div>
+        <div class="timeline-counter" id="tlCounter">1 / 12</div>
+        <button class="timeline-btn" id="tlNext" aria-label="Next milestone">→</button>
+      </div>
+
+      <div class="timeline-track" id="tlTrack">
+        <!-- Cards populated by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TABS: LESSONS + FUTURE ==================== -->
+<section class="tabs-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Reflections &amp; Roadmap</div>
+    <h2 class="section-title">What we&rsquo;ve learned. Where we&rsquo;re going.</h2>
+    <p class="section-subtitle">
+      Two views of the same partnership — the candid lessons from the growing pains, and the shared ambition
+      for what the next chapter looks like across ops, HR, finance, and intelligence.
+    </p>
+
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="lessons">Lessons &amp; Growing Pains</button>
+      <button class="tab-btn" data-tab="future">The Road Ahead</button>
+    </div>
+
+    <!-- Lessons tab -->
+    <div class="tab-content active" id="tab-lessons">
+      <div class="lessons-grid">
+
+        <div class="lesson-card">
+          <div class="lesson-num">1</div>
+          <div class="lesson-when">Mar 2024 · TLM Kickoff</div>
+          <h4>Don&rsquo;t replace WinTeam. Coexist with it.</h4>
+          <p>
+            PJS had WinTeam as their ERP/payroll system of record. The temptation for any vendor is to pitch
+            &ldquo;just move off it.&rdquo; We chose the opposite path — build a custom Winteam payroll export, treat
+            their hierarchies as sacred, and slot in alongside.
+          </p>
+          <div class="lesson-insight">
+            Respecting a customer&rsquo;s existing system isn&rsquo;t a constraint — it&rsquo;s the permission slip
+            for every future expansion.
+          </div>
+        </div>
+
+        <div class="lesson-card">
+          <div class="lesson-num">2</div>
+          <div class="lesson-when">Summer 2024 · Mobile &amp; Validation</div>
+          <h4>Quiet wins compound into loud trust.</h4>
+          <p>
+            Mobile break overrides, timecard validation scripts, IP-restricted web punches, position prompts —
+            each one was an unglamorous, invisible fix. Stacked together, they became the reason PJS was willing
+            to take the bigger swing on HR a year later.
+          </p>
+          <div class="lesson-insight">
+            The boring work earns the right to do the exciting work. Never skip the first.
+          </div>
+        </div>
+
+        <div class="lesson-card">
+          <div class="lesson-num">3</div>
+          <div class="lesson-when">July 2025 · The Bryan Alignment</div>
+          <h4>Reframe &ldquo;technical issues&rdquo; as process discovery.</h4>
+          <p>
+            Bryan Noteboom flagged that every fix was surfacing another issue. Instead of defending the tech,
+            we reframed: many of those &ldquo;technical&rdquo; items were actually configuration adjustments
+            forced by process refinement. We committed to a comprehensive open-items list, timelines, and a
+            clear go-live milestone.
+          </p>
+          <div class="lesson-insight">
+            When a customer is frustrated, change the frame before you change the code. Joint ownership of the
+            problem beats assigning blame every time.
+          </div>
+        </div>
+
+        <div class="lesson-card">
+          <div class="lesson-num">4</div>
+          <div class="lesson-when">Nov 2025 · The Efficient Hire Question</div>
+          <h4>Be honest about your partner map.</h4>
+          <p>
+            When Bryan asked if we had an integration with Efficient Hire, the commercial temptation was to
+            hint that we did or could. We said plainly: our seamless integration was with Synergi, and we&rsquo;d
+            explore Efficient Hire only if they asked us to. That honesty made the Synergi commitment stickier.
+          </p>
+          <div class="lesson-insight">
+            Customers can smell a forced answer. Truth about what you don&rsquo;t have today is the fastest way
+            to get credit for what you do have.
+          </div>
+        </div>
+
+        <div class="lesson-card">
+          <div class="lesson-num">5</div>
+          <div class="lesson-when">Nov 2025 · WOTC Payroll Data Gap</div>
+          <h4>Find the gap before the customer does.</h4>
+          <p>
+            When we started wiring Synergi&rsquo;s WOTC calc into PJS Austin&rsquo;s payroll feed, we discovered we
+            didn&rsquo;t natively carry exempt status or OT breakouts the way their calculation needed.
+            Sage recorded a Loom explaining the gap, the audit risk of imperfect data, and gave PJS the choice
+            to route via WinTeam instead. The credibility won us the next upsell.
+          </p>
+          <div class="lesson-insight">
+            Proactive disclosure of a data gap builds more trust than a silent workaround ever will.
+          </div>
+        </div>
+
+        <div class="lesson-card">
+          <div class="lesson-num">6</div>
+          <div class="lesson-when">Q1 2026 · Leadership Transition</div>
+          <h4>When the org chart changes, get in the room.</h4>
+          <p>
+            Brian Noteboom departed. Molly (consultant/new CFO), Jeremy, and Kirk entered the evaluation. The
+            instinct is to wait for the invite. The right move is to fly down, lead with Houston&rsquo;s WOTC
+            go-live as proof of forward motion, and earn relationships with the new leaders before the
+            evaluation becomes a procurement event.
+          </p>
+          <div class="lesson-insight">
+            Relationships don&rsquo;t transfer automatically with a title change. Show up physically. Show up early.
+          </div>
+        </div>
+
+        <div class="lesson-card">
+          <div class="lesson-num">7</div>
+          <div class="lesson-when">Ongoing · Pricing &amp; Consistency</div>
+          <h4>Price the entity like it&rsquo;s the customer.</h4>
+          <p>
+            PJS Houston is a separate legal entity from PJS Texas, but culturally they&rsquo;re one family. When
+            Evelyn asked about HR pricing in March 2025, we explicitly honored the same PEPM we had extended
+            to PJS Texas. Consistency across entities was the currency that mattered to them.
+          </p>
+          <div class="lesson-insight">
+            Fairness between a customer&rsquo;s entities is a value judgment. Get it wrong once and the
+            conversation becomes about pricing forever.
+          </div>
+        </div>
+
+        <div class="lesson-card">
+          <div class="lesson-num">8</div>
+          <div class="lesson-when">Throughout · The Weekly Cadence</div>
+          <h4>Calendar beats urgency.</h4>
+          <p>
+            Thursdays at 10am for HR. Weekly meetings with Stephanie, Matt, and KC that never stop, even
+            when nothing seems to need escalating. That cadence is the reason Sage and Melissa could
+            confidently tell Ryan in April 2026 that nothing in the client&rsquo;s signals suggested a
+            replacement evaluation was underway.
+          </p>
+          <div class="lesson-insight">
+            A reliable weekly heartbeat with a customer is the cheapest insurance policy in enterprise SaaS.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Future tab -->
+    <div class="tab-content" id="tab-future">
+
+      <div class="future-intro">
+        <h3>The next chapter: <em>service companies as AI platforms that deliver service.</em></h3>
+        <p>
+          The first 25 months wired PJS&rsquo;s operating stack onto Findd. The next 25 months turn that stack
+          into a platform — one where AI takes the first pass on workflows, WorkOps predicts what doesn&rsquo;t
+          need to happen, and PJS&rsquo;s clients get a transparency layer they can&rsquo;t get from anyone else
+          in janitorial. We get there with three product moves and a deliberate expansion of our partner
+          ecosystem into finance, payroll, and benefits.
+        </p>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-icon">🤖</div>
+          <h4>DiDi for HR &amp; Operations</h4>
+          <p>
+            Orchestrated AI agents that create tickets from inbound texts and email, handle applicant Q&amp;A,
+            trigger rehire flows, surface overtime anomalies, and escalate only the exceptions to a human.
+            Day-in-the-life sessions with Matt and KC map the real workload to AI leverage points.
+          </p>
+          <div class="impact-metric bottom-line">
+            <div class="impact-number">3–5×</div>
+            <div class="impact-metric-label-wrap">
+              <span class="impact-lead">Projected impact</span>
+              <div class="impact-label">HR &amp; ops team capacity at the same headcount; 40–60% faster applicant response times.</div>
+            </div>
+            <div class="impact-tag">Bottom Line</div>
+          </div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-icon">⚡</div>
+          <h4>WorkOps as Optimization</h4>
+          <p>
+            The leap from task list to intelligence layer. Use occupancy, swipe data, client calendars, TLM
+            patterns, and past incident density to tell a supervisor <em>this floor doesn&rsquo;t need cleaning
+            tonight</em> — or where to double-down based on last week&rsquo;s complaints. Direct line to margin.
+          </p>
+          <div class="impact-metric bottom-line">
+            <div class="impact-number">8–15%</div>
+            <div class="impact-metric-label-wrap">
+              <span class="impact-lead">Projected impact</span>
+              <div class="impact-label">Direct labor-cost reduction through eliminated unnecessary service visits and smarter routing.</div>
+            </div>
+            <div class="impact-tag">Bottom Line</div>
+          </div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-icon">👁️</div>
+          <h4>Transparency for Clients</h4>
+          <p>
+            Real-time, AI-generated dashboards for PJS&rsquo;s <em>own</em> customers — live feeds of what was
+            cleaned, by whom, with photo verification, WOTC compliance, payroll integrity, and workforce
+            readiness, all in one place. PJS stops selling cleaning; they sell a transparent, AI-auditable
+            operation.
+          </p>
+          <div class="impact-metric retention">
+            <div class="impact-number">+20–30%</div>
+            <div class="impact-metric-label-wrap">
+              <span class="impact-lead">Projected impact</span>
+              <div class="impact-label">Client retention lift and measurably higher win rate on new RFPs where transparency is the differentiator.</div>
+            </div>
+            <div class="impact-tag">Retention + Acquisition</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="partners-header">
+        <h3>Expanding the partner ecosystem</h3>
+        <p>
+          We&rsquo;ve already proven the partner model with Synergi for WOTC. The next set of integrations
+          extends it into finance, payroll, and benefits — so PJS can consolidate more of their operating
+          stack behind a single applicant/employee experience.
+        </p>
+      </div>
+
+      <div class="partner-categories">
+
+        <!-- Finance / ERP -->
+        <div class="partner-cat">
+          <div class="partner-cat-header">
+            <div class="cat-label">Finance &amp; ERP</div>
+            <h4>Close books faster, reconcile with confidence.</h4>
+            <p>
+              Push validated labor, tax-credit, and operational data directly into PJS&rsquo;s financial system of
+              record. Reduce month-end friction; eliminate the CSV dance.
+            </p>
+          </div>
+          <div class="partner-cat-body">
+            <div class="existing">Active Today</div>
+            <div class="partner-chips">
+              <span class="partner-chip active">WinTeam (legacy ERP)</span>
+            </div>
+            <div class="exploring">Partners we&rsquo;d bring to the table</div>
+            <div class="partner-chips">
+              <span class="partner-chip proposed">NetSuite</span>
+              <span class="partner-chip proposed">Sage Intacct</span>
+            </div>
+            <div class="impact-metric bottom-line">
+              <div class="impact-number">−50%</div>
+              <div class="impact-metric-label-wrap">
+                <span class="impact-lead">Projected impact</span>
+                <div class="impact-label">Month-end close time cut in half via automated labor + WOTC + tax-credit feeds; finance team redirected to analysis.</div>
+              </div>
+              <div class="impact-tag">Bottom Line</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payroll -->
+        <div class="partner-cat">
+          <div class="partner-cat-header">
+            <div class="cat-label">Payroll</div>
+            <h4>One hire event, one source of truth, zero reentry.</h4>
+            <p>
+              Full bi-directional payroll integration so an applicant completed in Findd HR flows to payroll
+              without re-keying. Critical for scale, and essential for a clean WOTC data feed.
+            </p>
+          </div>
+          <div class="partner-cat-body">
+            <div class="existing">Active Today</div>
+            <div class="partner-chips">
+              <span class="partner-chip active">WinTeam Payroll</span>
+            </div>
+            <div class="exploring">Partners we&rsquo;d bring to the table</div>
+            <div class="partner-chips">
+              <span class="partner-chip proposed">ADP</span>
+              <span class="partner-chip proposed">Paylocity</span>
+              <span class="partner-chip proposed">Proliant</span>
+            </div>
+            <div class="impact-metric bottom-line">
+              <div class="impact-number">−80%+</div>
+              <div class="impact-metric-label-wrap">
+                <span class="impact-lead">Projected impact</span>
+                <div class="impact-label">Data-reentry hours per pay cycle eliminated; lower payroll error rates directly reduce employee churn and rehire cost.</div>
+              </div>
+              <div class="impact-tag">Bottom Line + Retention</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="partner-cat">
+          <div class="partner-cat-header">
+            <div class="cat-label">Benefits &amp; Compliance</div>
+            <h4>From tax credits to total rewards, all in one flow.</h4>
+            <p>
+              Extend the Synergi WOTC playbook into benefits administration, ACA compliance, and carrier
+              connections. Keep the applicant and employee in one experience — end to end.
+            </p>
+          </div>
+          <div class="partner-cat-body">
+            <div class="existing">Active Today</div>
+            <div class="partner-chips">
+              <span class="partner-chip active">Synergi Partners (WOTC)</span>
+            </div>
+            <div class="exploring">Partners we&rsquo;d bring to the table</div>
+            <div class="partner-chips">
+              <span class="partner-chip proposed">Employee Navigator</span>
+              <span class="partner-chip proposed">Ease</span>
+              <span class="partner-chip proposed">PlanSource</span>
+              <span class="partner-chip proposed">bswift</span>
+              <span class="partner-chip proposed">Guardian &amp; MetLife (carrier APIs)</span>
+            </div>
+            <div class="impact-metric bottom-line">
+              <div class="impact-number">+10–15%</div>
+              <div class="impact-metric-label-wrap">
+                <span class="impact-lead">Projected impact</span>
+                <div class="impact-label">Additional WOTC capture via automated verification plus ACA penalty exposure avoided ($2–4K per FTE).</div>
+              </div>
+              <div class="impact-tag">Bottom Line</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI & Data -->
+        <div class="partner-cat">
+          <div class="partner-cat-header">
+            <div class="cat-label">AI, Data &amp; Intelligence</div>
+            <h4>From DiDi to agentic operations.</h4>
+            <p>
+              Deepen the intelligence layer — LLM orchestration, private knowledge bases, verification,
+              GenBI dashboards — so PJS&rsquo;s internal teams and their clients both get the same real-time
+              picture of the operation.
+            </p>
+          </div>
+          <div class="partner-cat-body">
+            <div class="existing">Active Today</div>
+            <div class="partner-chips">
+              <span class="partner-chip active">DiDi (Findd AI)</span>
+              <span class="partner-chip active">Twilio (messaging)</span>
+              <span class="partner-chip active">DiDi Knowledge Base</span>
+            </div>
+            <div class="exploring">On the roadmap</div>
+            <div class="partner-chips">
+              <span class="partner-chip proposed">Anthropic Claude (reasoning &amp; agents)</span>
+              <span class="partner-chip proposed">Vector DBs &amp; retrieval infra</span>
+              <span class="partner-chip proposed">Photo verification / CV providers</span>
+            </div>
+            <div class="impact-metric acquisition">
+              <div class="impact-number">+15–25%</div>
+              <div class="impact-metric-label-wrap">
+                <span class="impact-lead">Projected impact</span>
+                <div class="impact-label">Higher new-logo win rate where data-driven differentiation beats price-only competitors on RFPs.</div>
+              </div>
+              <div class="impact-tag">Acquisition</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="cta-strip">
+        <div>
+          <h3>The immediate asks</h3>
+          <p>
+            Fly to Austin to meet Molly, Jeremy, and Kirk. Book the day-in-the-life with Matt and KC.
+            Close Houston&rsquo;s WOTC. Ship the DiDi Knowledge Base pilot.
+          </p>
+        </div>
+        <div class="cta-stats">
+          <div class="cta-stat"><div class="n">4</div><div class="l">Districts</div></div>
+          <div class="cta-stat"><div class="n">4</div><div class="l">Modules live</div></div>
+          <div class="cta-stat"><div class="n">∞</div><div class="l">What&rsquo;s next</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>Findd × PJS</strong> — A Partnership Story &nbsp;·&nbsp; Prepared April 2026
+</footer>
+
+<script>
+  // ==================== Timeline Data ====================
+  const milestones = [
+    {
+      date: "March 2024",
+      badge: "TLM",
+      title: "TLM kickoff — PJS of Texas",
+      body: "The first call. TLM goes live across Austin, El Paso, and San Antonio with a custom WinTeam payroll export. Ryan&rsquo;s Slack note: &ldquo;fantastic work on the PJS kick off call everyone. We showed very well.&rdquo;",
+      meta: ["Austin · El Paso · San Antonio", "Clock-mode devices", "WinTeam integration"]
+    },
+    {
+      date: "May–October 2024",
+      badge: "TLM",
+      title: "TLM hardening",
+      body: "Mobile break overrides, IP-restricted web punches, timecard validation scripts, position prompts at the clock. The boring work that earned the right to everything that came after.",
+      meta: ["Mobile iOS QA", "Validation scripts", "Supervisor direct reports"]
+    },
+    {
+      date: "March 2025",
+      badge: "HR",
+      title: "PJS Houston enters the picture",
+      body: "Evelyn Meza asks about the onboarding suite. Houston has grown to 2,100 employees and is drowning in paper I-9s and W-4s. Findd runs a demo. Honored PJS Texas pricing. The expansion begins.",
+      meta: ["2,100 employees", "Paper → digital onboarding", "Evelyn Meza"]
+    },
+    {
+      date: "April 2025",
+      badge: "HR",
+      title: "Houston HR kickoff",
+      body: "Sage and Camilo kick off Houston&rsquo;s HR implementation. Monday.com workspace stood up. Thursday 10am recurring cadence. Target: 6–8 weeks to live.",
+      meta: ["Monday.com stood up", "Thursday 10am cadence", "I-9, W-4, applications"]
+    },
+    {
+      date: "May 2025",
+      badge: "HR",
+      title: "Bryan Noteboom greenlights Austin pilot",
+      body: "Ryan and Josh meet with Bryan directly. Austin HR pilot approved — payment deferred until fully operational. First mention of DiDi and Mobilize in the same conversation.",
+      meta: ["Pilot approved", "Payment deferred", "Mobilize trial offered"]
+    },
+    {
+      date: "July 2025",
+      badge: "mobilize",
+      title: "Mobilize pitch + upsells signed",
+      body: "Mobilize pitched to Austin around PJS&rsquo;s Backpack community program. $7,808 in new MRR committed across PJS alone: Austin $4,200, San Antonio $3,130, El Paso $478.",
+      meta: ["$7,808 MRR upside", "Backpack campaigns", "DiDi personalization"]
+    },
+    {
+      date: "Summer 2025",
+      badge: "ops",
+      title: "The Bryan alignment moment",
+      body: "Technical fixes surfacing more technical issues. Josh drafts, Ryan pauses. The team reframes the conversation: many &ldquo;technical&rdquo; items were actually process refinement. Joint ownership restored.",
+      meta: ["Reframe, don&rsquo;t defend", "Open-items list", "Go-live milestone"]
+    },
+    {
+      date: "October 2, 2025",
+      badge: "ai",
+      title: "AI &amp; GenBI session with leadership",
+      body: "Ryan walks Brian Noteboom, KC, and Matt Drazan through DiDi — orchestrated AI agents for ticket creation, pay-stub flows, dashboards, and client escalation workflows.",
+      meta: ["Brian + KC + Matt", "Multi-agent orchestration", "GenBI reporting"]
+    },
+    {
+      date: "October 21, 2025",
+      badge: "TLM",
+      title: "Austin handoff to Account Management",
+      body: "Austin transitions from implementation to AM. Full stack: TLM, HR, Scheduling, Leave Tracking at $2.32 PEPM. Production, stable, and a reference account.",
+      meta: ["$2.32 PEPM", "HRIS + TLM + Scheduling", "Ketzia Cisneros lead"]
+    },
+    {
+      date: "November 2025",
+      badge: "wotc",
+      title: "Synergi WOTC partnership activated",
+      body: "Co-branded flyers. Synergi + PJS + Findd in the room. Curtis Roach commits to live within days of signing. Applicant 8850 stays inside Findd HR — no second portal.",
+      meta: ["Curtis Roach (Synergi)", "Co-branded rollout", "8850 inside Findd flow"]
+    },
+    {
+      date: "January 1, 2026",
+      badge: "wotc",
+      title: "WOTC live across Austin, El Paso, San Antonio",
+      body: "First Findd + Synergi co-branded flow in production at PJS scale. Payroll data reconciled, one-click data routing, applicant experience untouched.",
+      meta: ["3 districts live", "First Findd + Synergi flow", "Zero portal switching"]
+    },
+    {
+      date: "March–April 2026",
+      badge: "ops",
+      title: "Houston WOTC + Austin leadership transition",
+      body: "Houston adds WOTC to HR. New PJS leadership — Molly, Jeremy, Kirk — enters the picture. Findd&rsquo;s executive strategy tags PJS as a cornerstone LAND→ADOPT→EXPAND→DEEPEN example.",
+      meta: ["Houston WOTC rollout", "New leadership", "Executive flywheel story"]
+    }
+  ];
+
+  const track = document.getElementById('tlTrack');
+  milestones.forEach((m, i) => {
+    const card = document.createElement('div');
+    card.className = 'tl-card';
+    card.innerHTML = `
+      <div class="tl-date">${m.date}</div>
+      <span class="tl-badge ${m.badge}">${m.badge.toUpperCase()}</span>
+      <h3>${m.title}</h3>
+      <p>${m.body}</p>
+      <div class="tl-meta">
+        ${m.meta.map(x => `<span class="meta-chip">${x}</span>`).join('')}
+      </div>
+    `;
+    track.appendChild(card);
+  });
+
+  // Timeline controls
+  const prevBtn = document.getElementById('tlPrev');
+  const nextBtn = document.getElementById('tlNext');
+  const counter = document.getElementById('tlCounter');
+  const progress = document.getElementById('tlProgress');
+  const total = milestones.length;
+
+  function cardStep() {
+    const first = track.querySelector('.tl-card');
+    if (!first) return 400;
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.gap) || 24;
+    return first.offsetWidth + gap;
+  }
+
+  function currentIndex() {
+    return Math.round(track.scrollLeft / cardStep());
+  }
+
+  function updateUI() {
+    const idx = Math.min(Math.max(currentIndex(), 0), total - 1);
+    counter.textContent = `${idx + 1} / ${total}`;
+    const pct = total <= 1 ? 100 : ((idx) / (total - 1)) * 100;
+    progress.style.width = Math.max(6, pct) + '%';
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx >= total - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    track.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+  });
+  nextBtn.addEventListener('click', () => {
+    track.scrollBy({ left: cardStep(), behavior: 'smooth' });
+  });
+  track.addEventListener('scroll', () => {
+    window.requestAnimationFrame(updateUI);
+  });
+
+  // Keyboard support
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') prevBtn.click();
+    if (e.key === 'ArrowRight') nextBtn.click();
+  });
+
+  updateUI();
+
+  // ==================== Tabs ====================
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.tab-content').forEach(c => {
+        c.classList.toggle('active', c.id === `tab-${target}`);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
