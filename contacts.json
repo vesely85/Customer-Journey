@@ -1,0 +1,40 @@
+{
+  "contacts": [
+    {
+      "id": "c001",
+      "name": "Sarah Whitman",
+      "title": "VP Operations",
+      "company": "Bluegrass Facility Services",
+      "company_type": "janitorial / commercial cleaning",
+      "headcount": "450 field techs across 3 states",
+      "relationship": "2nd-degree, met at ISSA Show 2024",
+      "recent_activity": "Posted last week about labor turnover hitting 38% and rising overtime costs",
+      "known_pain_points": ["scheduling gaps on multi-site contracts", "inspection paperwork backlog", "OSHA log compilation"],
+      "notes": "Skeptical of 'AI hype' but practical. Loves tactical wins over platform pitches."
+    },
+    {
+      "id": "c002",
+      "name": "Marcus Reyes",
+      "title": "Director of Field Operations",
+      "company": "Apex HVAC & Mechanical",
+      "company_type": "commercial HVAC service",
+      "headcount": "120 service technicians",
+      "relationship": "1st-degree connection from previous role",
+      "recent_activity": "Shared a McKinsey report on skilled trades shortage; commented that dispatch routing is their #1 margin killer",
+      "known_pain_points": ["truck routing efficiency", "callback rate on first-time fixes", "EPA 608 cert tracking"],
+      "notes": "Engineer background. Wants to see the math, not the marketing."
+    },
+    {
+      "id": "c003",
+      "name": "Dana Kowalski",
+      "title": "COO",
+      "company": "Greenleaf Landscape Group",
+      "company_type": "commercial landscaping & grounds maintenance",
+      "headcount": "200 crew members, peak-season 320",
+      "relationship": "3rd-degree, intro pending from mutual contact",
+      "recent_activity": "Hiring posts for an Operations Analyst — third one this quarter",
+      "known_pain_points": ["seasonal workforce ramp", "crew QA from photo audits", "DOT compliance for fleet"],
+      "notes": "PE-backed, 18-month value-creation plan. Looking for measurable EBITDA levers."
+    }
+  ]
+}
