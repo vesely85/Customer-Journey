@@ -15,6 +15,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import os
 import sys
@@ -26,7 +27,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 ROOT = Path(__file__).parent
-CONTACTS_PATH = ROOT / "contacts.json"
+CONTACTS_JSON = ROOT / "contacts.json"
+CONTACTS_CSV = ROOT / "contacts.csv"
 
 MODEL = "claude-opus-4-7"
 
@@ -108,7 +110,40 @@ specific, do not write filler — say what you'd need to know.
 
 
 def load_contacts() -> dict:
-    return json.loads(CONTACTS_PATH.read_text())
+    """Load contacts from contacts.csv if present, otherwise contacts.json.
+
+    CSV format: one row per contact, header row required, columns:
+      id, name, title, company, company_type, headcount, relationship,
+      recent_activity, known_pain_points, notes
+
+    `known_pain_points` is a single cell with items separated by `;`.
+    """
+    if CONTACTS_CSV.exists():
+        return _load_csv(CONTACTS_CSV)
+    if CONTACTS_JSON.exists():
+        return json.loads(CONTACTS_JSON.read_text())
+    raise SystemExit(f"No contacts file found. Create {CONTACTS_CSV.name} or {CONTACTS_JSON.name}.")
+
+
+def _load_csv(path: Path) -> dict:
+    required = {
+        "id", "name", "title", "company", "company_type", "headcount",
+        "relationship", "recent_activity", "known_pain_points", "notes",
+    }
+    with path.open(newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        missing = required - set(reader.fieldnames or [])
+        if missing:
+            raise SystemExit(f"{path.name} is missing required columns: {sorted(missing)}")
+        contacts = []
+        for row in reader:
+            if not row.get("id"):
+                continue  # skip blank rows
+            row["known_pain_points"] = [
+                p.strip() for p in row["known_pain_points"].split(";") if p.strip()
+            ]
+            contacts.append(row)
+    return {"contacts": contacts}
 
 
 def find_contact(contact_id: str) -> dict:
